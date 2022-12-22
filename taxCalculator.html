@@ -52,19 +52,18 @@
                 <form>
                     <div class="form-group">
                         <label for="originalAmount">Original Amount</label>
-                        <input type="text" class="form-control" id="oa" aria-describedby="originalAmount"
-                            placeholder="100.44">
+                        <input type="text" class="form-control" id="originalAmount" aria-describedby="originalAmount">
                         <small id="preTax" class="form-text text-muted">Enter the pre-tax value.</small>
                     </div>
                     <div class="form-group">
                         <div class="slidecontainer">
-                            <label for="taxValue">Tax Value (Default 20%)</label>
-                            <input type="range" class="form-control" id="taxValue" aria-describedby="taxValue" min="0"
-                                max="100" step="0.5" value="20" class="slider" id="myRange">
-                            <p id="tv"></p>
+                            <label for="taxValue">Tax Rate (Default 20%)</label>
+                            <input type="range" class="form-control" id="taxRate" aria-describedby="taxValue" min="0"
+                                max="100" step="0.5" value="20" class="slider">
+                            <p id="taxRateDisplay"></p>
                         </div>
                     </div>
-                    <button onclick="return calculateTax()" class="btn btn-primary">Calculate</button>
+                    <button class="btn btn-primary" id="btnCalculate">Calculate</button>
                     <div class="form-group">
                         <label for="withTax">With Tax</label>
                         <input type="text" class="form-control" id="withTax" aria-describedby="withTax"
@@ -83,38 +82,8 @@
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
-    <script type="text/javascript">
+    <script src="./main.js"></script>
 
-        function calculateTax() {
-            const currency = ["£", "$"];
-            var orig = document.getElementById("oa").value;
-            var sOrig = "";
-            for (var i = orig.length - 1; i >= 0; i--) {
-                let charI = orig.charAt(i);
-                if (currency.indexOf(charI) == -1) {
-                    sOrig += charI;
-                }
-            }
-            sOrig = sOrig.split("").reverse().join("");
-            percentTax = 1 + document.getElementById("taxValue").value;
-            newVal = (sOrig * (percentTax / 100)).toFixed(2);
-            document.getElementById("withTax").value = "£" + newVal;
-            return false;
-        }
-    </script>
-
-
-
-    <script type="text/javascript">
-        var slider = document.getElementById("taxValue");
-        var output = document.getElementById("tv");
-        output.innerHTML = slider.value + "%"; // Display the default slider value
-
-        // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function () {
-            output.innerHTML = this.value + "%";
-        }
-    </script>
 </body>
 
 </html>
